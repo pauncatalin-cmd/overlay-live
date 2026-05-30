@@ -13,7 +13,7 @@
   /* Pozitie texte slide pe canvas 1080x1920 */
   --bar-width:1000px;
   --bar-height:150px;
-  --bar-top:500px;
+  --bar-top:585px;
 
   --blue:#00aaff;
   --cyan:#00eaff;
@@ -438,7 +438,7 @@ html, body{
 
 @keyframes textBoomPulse{
   0%,100%{transform:scale(1);filter:brightness(1);}
-  50%{transform:scale(1.035);filter:brightness(1.25);}
+  50%{transform:scale(1.015);filter:brightness(1.05);}
 }
 
 .logo{
@@ -480,8 +480,9 @@ html, body{
   font-weight:1000;
   letter-spacing:.4px;
   text-shadow:
-    0 0 7px white,
-    0 0 16px var(--cyan);
+    0 1px 2px rgba(0,0,0,.9),
+    0 0 5px rgba(255,255,255,.75),
+    0 0 9px rgba(0,234,255,.45);
 }
 
 .main{
@@ -490,9 +491,9 @@ html, body{
   font-weight:1000;
   line-height:1;
   text-shadow:
-    0 0 10px var(--blue),
-    0 0 24px rgba(0,170,255,.95),
-    0 0 38px rgba(0,234,255,.65);
+    0 2px 3px rgba(0,0,0,.9),
+    0 0 6px rgba(0,170,255,.75),
+    0 0 13px rgba(0,234,255,.38);
 }
 
 .troll-main{
@@ -501,9 +502,9 @@ html, body{
   font-weight:1000;
   line-height:1;
   text-shadow:
-    0 0 10px var(--pink),
-    0 0 26px rgba(255,79,216,.95),
-    0 0 42px rgba(255,79,216,.65);
+    0 2px 3px rgba(0,0,0,.9),
+    0 0 6px rgba(255,79,216,.78),
+    0 0 14px rgba(255,79,216,.42);
 }
 
 .small{
@@ -511,29 +512,33 @@ html, body{
   font-size:18px;
   font-weight:900;
   text-shadow:
-    0 0 7px white,
-    0 0 16px rgba(0,234,255,.65);
+    0 1px 2px rgba(0,0,0,.9),
+    0 0 5px rgba(255,255,255,.72),
+    0 0 9px rgba(0,234,255,.38);
 }
 
 .green{
   color:var(--green);
   text-shadow:
-    0 0 10px var(--green),
-    0 0 26px rgba(57,255,20,.9);
+    0 2px 3px rgba(0,0,0,.9),
+    0 0 6px rgba(57,255,20,.8),
+    0 0 13px rgba(57,255,20,.42);
 }
 
 .red{
   color:var(--red);
   text-shadow:
-    0 0 10px var(--red),
-    0 0 26px rgba(255,23,68,.9);
+    0 2px 3px rgba(0,0,0,.9),
+    0 0 6px rgba(255,23,68,.8),
+    0 0 13px rgba(255,23,68,.42);
 }
 
 .discord{
   color:var(--discord);
   text-shadow:
-    0 0 10px var(--discord),
-    0 0 26px rgba(88,101,242,1);
+    0 2px 3px rgba(0,0,0,.9),
+    0 0 6px rgba(88,101,242,.8),
+    0 0 13px rgba(88,101,242,.42);
 }
 
 .char{
@@ -804,7 +809,7 @@ function textSpans(text, className){
 
 function sparkles(){
   let html = "";
-  for(let i = 0; i < 26; i++){
+  for(let i = 0; i < 14; i++){
     const left = 70 + Math.random() * 860;
     const top = 8 + Math.random() * 52;
     const delay = Math.random() * 2;

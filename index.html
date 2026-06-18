@@ -12,10 +12,10 @@
 
   /* Pozitie texte slide pe canvas 1080x1920 */
   --bar-width:1000px;
-  --bar-height:90px;
-  --bar-top:590px;
-  --slide-font-size:24px;
-  --thanks-font-size:38px;
+  --bar-height:150px;
+  --bar-top:547px;
+  --slide-font-size:26px;
+  --thanks-font-size:46px;
 
   --blue:#00aaff;
   --cyan:#00eaff;
@@ -356,18 +356,22 @@ html, body{
 .row{
   position:absolute;
   left:0;
-  top:0;
   width:var(--bar-width);
-  height:var(--bar-height);
+  height:70px;
   display:flex;
   align-items:center;
   justify-content:center;
   overflow:visible;
-  white-space:nowrap;
 }
 
+.row-top{top:4px;}
+.row-bottom{top:78px;}
 
-.full-overlay.showing-thanks .single-row{
+.full-overlay.showing-thanks #trollRow{
+  opacity:0;
+}
+
+.full-overlay.showing-thanks #promoRow{
   top:0;
   height:var(--bar-height);
 }
@@ -378,12 +382,9 @@ html, body{
   display:flex;
   align-items:center;
   justify-content:center;
-  flex-wrap:nowrap;
-  white-space:nowrap;
-  gap:8px;
-  padding:0 8px;
+  gap:10px;
+  padding:0 18px;
   overflow:visible;
-  transform-origin:center center;
 }
 
 .slide.thanks-slide{
@@ -394,7 +395,6 @@ html, body{
   align-items:center;
   justify-content:center;
   flex-wrap:nowrap;
-  white-space:nowrap;
   gap:0;
   padding:0;
 }
@@ -424,13 +424,7 @@ html, body{
 }
 
 .slide.active .text{
-  display:inline-flex;
-  white-space:nowrap;
-  flex-wrap:nowrap;
-  position:relative;
-  z-index:6;
-  transform-origin:center;
-  flex-shrink:0;
+  animation:textBoomPulse 2.4s ease-in-out infinite;
 }
 
 .slide.leaving{
@@ -484,8 +478,8 @@ html, body{
 }
 
 .logo{
-  width:50px;
-  height:50px;
+  width:58px;
+  height:58px;
   object-fit:contain;
   flex-shrink:0;
   z-index:5;
@@ -496,7 +490,7 @@ html, body{
 }
 
 .icon{
-  font-size:32px;
+  font-size:36px;
   flex-shrink:0;
   z-index:5;
   filter:drop-shadow(0 0 12px var(--cyan));
@@ -511,11 +505,9 @@ html, body{
 .text{
   display:inline-flex;
   white-space:nowrap;
-  flex-wrap:nowrap;
   position:relative;
   z-index:6;
   transform-origin:center;
-  flex-shrink:0;
 }
 
 .label{
@@ -607,7 +599,7 @@ html, body{
   z-index:2;
 }
 
-.single-row .spark{
+.row-bottom .spark{
   background:var(--cyan);
   box-shadow:
     0 0 8px var(--cyan),
@@ -623,14 +615,13 @@ html, body{
 .pill{
   position:relative;
   z-index:6;
-  padding:3px 8px;
+  padding:4px 10px;
   border-radius:999px;
   background:var(--green);
   color:#061006;
-  font-size:20px;
+  font-size:var(--slide-font-size);
   font-weight:1000;
   white-space:nowrap;
-  flex-shrink:0;
   box-shadow:
     0 0 12px var(--green),
     0 0 24px rgba(57,255,20,.8);
@@ -657,15 +648,15 @@ html, body{
 }
 
 .platform{
-  width:28px;
-  height:28px;
+  width:32px;
+  height:32px;
   border-radius:10px;
   display:grid;
   place-items:center;
   background:rgba(0,0,0,.25);
   border:2px solid var(--cyan);
   color:white;
-  font-size:15px;
+  font-size:17px;
   font-weight:1000;
   box-shadow:0 0 12px rgba(0,234,255,.9);
   animation:platformBounce 1.8s ease-in-out infinite;
@@ -731,7 +722,8 @@ html, body{
 
       <div class="full-overlay">
         <div class="mega-bar">
-          <div class="row single-row" id="mainRow"></div>
+          <div class="row row-top" id="trollRow"></div>
+          <div class="row row-bottom" id="promoRow"></div>
         </div>
       </div>
     </div>
@@ -836,49 +828,104 @@ const promoItems = [
   {thanks:true, main:"MULȚUMESC PENTRU APRECIERI!"}
 ];
 
-let mainIndex = 0;
+let trollIndex = 0;
+let promoIndex = 0;
 
-const allItems = [
-  ...trollItems.map(item => ({...item, itemType:"troll"})),
-  ...promoItems.map(item => ({...item, itemType:"promo"}))
-];
+function textSpans(text, className){
+  return `<span class="text ${className}">` + [...text].map((char, index) => {
+    const center = (text.length - 1) / 2;
+    const distance = index - center;
+    const flyX = distance * 4;
+    const flyR = distance * 2.6;
+    const enterX = distance * -2.4;
+    const enterR = distance * -1.4;
 
-function shrinkToFit(slide){
-  if(!slide){
-    return;
+    return `<span class="char" style="--i:${index}; --fly-x:${flyX}px; --fly-r:${flyR}deg; --enter-x:${enterX}px; --enter-r:${enterR}deg;">${char === " " ? "&nbsp;" : char}</span>`;
+  }).join("") + `</span>`;
+}
+
+function sparkles(){
+  let html = "";
+  for(let i = 0; i < 14; i++){
+    const left = 70 + Math.random() * 860;
+    const top = 8 + Math.random() * 52;
+    const delay = Math.random() * 2;
+    html += `<span class="spark" style="left:${left}px; top:${top}px; --spark-delay:${delay}s;"></span>`;
+  }
+  return html;
+}
+
+function discordLogo(){
+  return `
+  <div class="discord-logo">
+    <svg viewBox="0 0 245 240" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#5865F2" d="M104.4 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.3-5 10.2-11.1.1-6.1-4.5-11.1-10.2-11.1zm36.2 0c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.3-5 10.2-11.1.1-6.1-4.5-11.1-10.2-11.1z"/>
+      <path fill="#5865F2" d="M189.5 20h-134C44.2 20 35 29.2 35 40.6v135.2c0 11.4 9.2 20.6 20.5 20.6h113.4l-5.3-18.5 12.8 11.9 12.1 11.2L210 220V40.6c0-11.4-9.2-20.6-20.5-20.6zm-38.6 130.6s-3.6-4.3-6.6-8.1c13.1-3.7 18.1-11.9 18.1-11.9-4.1 2.7-8 4.6-11.5 5.9-5 2.1-9.8 3.5-14.5 4.3-9.6 1.8-18.4 1.3-25.9-.1-5.7-1.1-10.6-2.7-14.7-4.3-2.3-.9-4.8-2-7.3-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.3-1.8-1-2.8-1.7-2.8-1.7s4.8 8 17.5 11.8c-3 3.8-6.7 8.3-6.7 8.3-22.1-.7-30.5-15.2-30.5-15.2 0-32.2 14.4-58.3 14.4-58.3 14.4-10.8 28.1-10.5 28.1-10.5l1 1.2c-18 5.2-26.3 13.1-26.3 13.1s2.2-1.2 5.9-2.9c10.7-4.7 19.2-6 22.7-6.3.6-.1 1.1-.2 1.7-.2 6.1-.8 13-1 20.2-.2 9.5 1.1 19.7 3.9 30.1 9.6 0 0-7.9-7.5-24.9-12.7l1.4-1.6s13.7-.3 28.1 10.5c0 0 14.4 26.1 14.4 58.3 0 0-8.5 14.5-30.6 15.2z"/>
+    </svg>
+  </div>`;
+}
+
+function buildSlide(item, type){
+  if(item.thanks){
+    let html = `<div class="slide thanks-slide entering">`;
+    html += sparkles();
+    html += textSpans(item.main, "thanks-main");
+    html += `</div>`;
+    return html;
   }
 
-  slide.style.transform = "scale(1)";
-  slide.style.transformOrigin = "center center";
+  let html = `<div class="slide entering">`;
+  html += sparkles();
 
-  const row = document.getElementById("mainRow");
-  const maxWidth = row.clientWidth - 12;
-  const currentWidth = slide.scrollWidth;
-
-  if(currentWidth > maxWidth){
-    const scale = Math.max(0.64, maxWidth / currentWidth);
-    slide.style.transform = "scale(" + scale + ")";
+  if(item.discord){
+    html += discordLogo();
+  } else if(item.img){
+    html += `<img class="logo" src="${item.img}">`;
+  } else if(item.icon){
+    html += `<div class="icon">${item.icon}</div>`;
   }
+
+  html += textSpans(item.label, `label ${item.labelClass || ""}`);
+
+  const mainClass = type === "promo" ? `main ${item.mainClass || ""}` : `troll-main ${item.color || ""}`;
+  html += textSpans(item.main, mainClass);
+
+  if(item.small){
+    html += textSpans(item.small, "small");
+  }
+
+  if(item.pill){
+    html += `<div class="pill ${item.danger ? "danger-pill" : ""}">${item.pill}</div>`;
+  }
+
+  if(item.platforms){
+    html += `
+    <div class="platforms">
+      <div class="platform">♪</div>
+      <div class="platform kick">K</div>
+      <div class="platform yt">▶</div>
+    </div>`;
+  }
+
+  html += `</div>`;
+  return html;
 }
 
 function activateSlide(slide){
   setTimeout(() => {
     if(slide){
-      shrinkToFit(slide);
       slide.classList.add("active");
     }
   }, 1100);
 }
 
-function switchSlide(rowId, items, index){
+function switchSlide(rowId, items, index, type){
   const row = document.getElementById(rowId);
   const overlay = document.querySelector(".full-overlay");
-  const item = items[index];
-  const type = item.itemType || "promo";
 
-  if(item.thanks){
+  if(type === "promo" && items[index] && items[index].thanks){
     overlay.classList.add("showing-thanks");
-  } else {
+  } else if(type === "promo"){
     overlay.classList.remove("showing-thanks");
   }
 
@@ -889,9 +936,8 @@ function switchSlide(rowId, items, index){
     oldSlide.classList.add("leaving");
 
     setTimeout(() => {
-      row.insertAdjacentHTML("beforeend", buildSlide(item, type));
+      row.insertAdjacentHTML("beforeend", buildSlide(items[index], type));
       const newSlide = row.querySelector(".slide.entering:not(.leaving)");
-      shrinkToFit(newSlide);
       activateSlide(newSlide);
     }, overlapTime);
 
@@ -901,26 +947,26 @@ function switchSlide(rowId, items, index){
       }
     }, flyTime + 350);
   } else {
-    row.insertAdjacentHTML("beforeend", buildSlide(item, type));
+    row.insertAdjacentHTML("beforeend", buildSlide(items[index], type));
     const newSlide = row.querySelector(".slide.entering:not(.leaving)");
-    shrinkToFit(newSlide);
     activateSlide(newSlide);
   }
 }
 
 function startSlides(){
-  switchSlide("mainRow", allItems, mainIndex);
+  switchSlide("trollRow", trollItems, trollIndex, "troll");
+  switchSlide("promoRow", promoItems, promoIndex, "promo");
 
   setInterval(() => {
-    mainIndex = (mainIndex + 1) % allItems.length;
-    switchSlide("mainRow", allItems, mainIndex);
+    trollIndex = (trollIndex + 1) % trollItems.length;
+    switchSlide("trollRow", trollItems, trollIndex, "troll");
+  }, slideTime);
+
+  setInterval(() => {
+    promoIndex = (promoIndex + 1) % promoItems.length;
+    switchSlide("promoRow", promoItems, promoIndex, "promo");
   }, slideTime);
 }
-
-window.addEventListener("resize", () => {
-  const activeSlide = document.querySelector("#mainRow .slide:not(.leaving)");
-  shrinkToFit(activeSlide);
-});
 
 startSlides();
 </script>

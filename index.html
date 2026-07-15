@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>KIP One Row Sliding Heartbeat Overlay</title>
+<title>KIP One Row Fade Heartbeat Overlay</title>
 
 <style>
 :root{
@@ -407,18 +407,19 @@ html, body{
 
 .slide.entering{
   opacity:0;
-  transform:translateX(115%);
-  animation:slideInFromRight 1.05s cubic-bezier(.16,1,.3,1) forwards;
+  transform:scale(.985);
+  animation:slideFadeIn .36s ease-out forwards;
 }
 
 .slide.entering .char{
-  animation:charInSmooth .75s cubic-bezier(.16,1,.3,1) forwards;
-  animation-delay:calc(var(--i) * .018s);
+  opacity:1;
+  transform:translateY(0) translateX(0) rotateZ(0deg) scale(1);
+  filter:blur(0);
 }
 
 .slide.active{
   opacity:1;
-  transform:translateX(0);
+  transform:scale(1);
 }
 
 .slide.active .char{
@@ -433,8 +434,8 @@ html, body{
 }
 
 .slide.leaving{
-  opacity:1;
-  animation:slideOutToLeft 1.05s cubic-bezier(.7,0,.84,0) forwards;
+  pointer-events:none;
+  animation:slideFadeOut .30s ease-in forwards;
 }
 
 .slide.leaving .char{
@@ -457,20 +458,14 @@ html, body{
   gap:0;
 }
 
-@keyframes slideInFromRight{
-  0%{opacity:0;transform:translateX(115%);filter:blur(7px);}
-  70%{opacity:1;transform:translateX(-2%);filter:blur(0);}
-  100%{opacity:1;transform:translateX(0);filter:blur(0);}
+@keyframes slideFadeIn{
+  0%{opacity:0;transform:scale(.985);filter:blur(3px);}
+  100%{opacity:1;transform:scale(1);filter:blur(0);}
 }
 
-@keyframes slideOutToLeft{
-  0%{opacity:1;transform:translateX(0);filter:blur(0);}
-  100%{opacity:0;transform:translateX(-115%);filter:blur(7px);}
-}
-
-@keyframes charInSmooth{
-  0%{opacity:0;transform:translateY(12px) scale(.88);filter:blur(5px);}
-  100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}
+@keyframes slideFadeOut{
+  0%{opacity:1;transform:scale(1);filter:blur(0);}
+  100%{opacity:0;transform:scale(.985);filter:blur(3px);}
 }
 
 @keyframes heartBeatMessage{
@@ -801,9 +796,9 @@ setInterval(() => {
 }, 1800);
 
 /* SLIDE TEXTE */
-const slideTime = 9500;
-const flyTime = 1100;
-const overlapTime = 120;
+const slideTime = 4500;
+const fadeOutTime = 300;
+const fadeInTime = 360;
 
 const trollItems = [
   {icon:"⚡", label:"LIVE CU TROLL", main:"CONTROLEAZĂ-MI CARACTERUL", color:"green"},
@@ -917,43 +912,43 @@ function buildSlide(item, type){
 function activateSlide(slide){
   setTimeout(() => {
     if(slide){
+      slide.classList.remove("entering");
       slide.classList.add("active");
     }
-  }, 1050);
+  }, fadeInTime);
 }
 
 function switchSlide(rowId, items, index, type){
- if(!Array.isArray(items)) items=[items];
+  if(!Array.isArray(items)) items = [items];
+
   const row = document.getElementById(rowId);
   const overlay = document.querySelector(".full-overlay");
+  const nextItem = items[index];
 
-  if(type === "promo" && items[index] && items[index].thanks){
+  if(type === "promo" && nextItem && nextItem.thanks){
     overlay.classList.add("showing-thanks");
-  } else if(type === "promo"){
+  } else {
     overlay.classList.remove("showing-thanks");
   }
 
-  const oldSlide = row.querySelector(".slide:not(.leaving)");
+  const oldSlide = row.querySelector(".slide");
+
+  const insertNextSlide = () => {
+    row.innerHTML = buildSlide(nextItem, type);
+    const newSlide = row.querySelector(".slide");
+    activateSlide(newSlide);
+  };
 
   if(oldSlide){
-    oldSlide.classList.remove("active");
+    oldSlide.classList.remove("active", "entering");
     oldSlide.classList.add("leaving");
 
     setTimeout(() => {
-      row.insertAdjacentHTML("beforeend", buildSlide(items[index], type));
-      const newSlide = row.querySelector(".slide.entering:not(.leaving)");
-      activateSlide(newSlide);
-    }, overlapTime);
-
-    setTimeout(() => {
-      if(oldSlide.parentNode){
-        oldSlide.remove();
-      }
-    }, 1250);
+      oldSlide.remove();
+      insertNextSlide();
+    }, fadeOutTime);
   } else {
-    row.insertAdjacentHTML("beforeend", buildSlide(items[index], type));
-    const newSlide = row.querySelector(".slide.entering:not(.leaving)");
-    activateSlide(newSlide);
+    insertNextSlide();
   }
 }
 

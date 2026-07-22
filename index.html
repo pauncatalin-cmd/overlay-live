@@ -800,19 +800,7 @@ const slideTime = 4500;
 const fadeOutTime = 300;
 const fadeInTime = 360;
 
-const trollItems = [
-  {icon:"⚡", label:"LIVE CU TROLL", main:"CONTROLEAZĂ-MI CARACTERUL", color:"green"},
-  {img:"Perfume.png", label:"PARFUM", main:"ANIMAȚIE TROLL"},
-  {img:"Super GG.png", label:"SUPER GG", main:"ANIMAȚIE TROLL"},
-  {img:"palarie.png", label:"PĂLĂRIA", main:"DANS MACARENA"},
-  {img:"scoica.png", label:"SCOICA", main:"DANS MICHAEL JACKSON"},
-  {img:"Money Gun.png", label:"MONEY GUN", main:"TASTA F"},
-  {img:"hand_heart.png", label:"HAND HEART", main:"DANS"},
-  {img:"Paper Crane.png", label:"PAPER CRANE", main:"FLOTĂRI"},
-  {img:"Future Encounter.png", label:"FUTURE", main:"ALT + F4", pill:"MĂ SCOȚI DIN JOC", danger:true},
-  {img:"mishka_bear.png", label:"MISHKA BEAR", main:"DANS FLOSS"},
-  {img:"Confetti.png", label:"CONFETTI", main:"ANIMAȚIE TROLL"}
-];
+const trollItems = [];
 
 const promoItems = [
   {icon:"🛒", label:"B-ZONE", main:"SHOP", small:"INTRĂ PE SHOP"},
@@ -952,12 +940,7 @@ function switchSlide(rowId, items, index, type){
   }
 }
 
-const mergedItems=[];
-const maxLen=Math.max(trollItems.length,promoItems.length);
-for(let i=0;i<maxLen;i++){
- if(i<trollItems.length) mergedItems.push({type:"troll",item:trollItems[i]});
- if(i<promoItems.length) mergedItems.push({type:"promo",item:promoItems[i]});
-}
+const mergedItems = promoItems.map(item => ({type:"promo", item:item}));
 let mergedIndex=0;
 function startSlides(){
  switchSlide("mainRow", mergedItems[0].item,0, mergedItems[0].type);

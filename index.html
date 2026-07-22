@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>KIP One Row Fade Heartbeat Overlay</title>
+<title>KIP Text and Particles Overlay</title>
 
 <style>
 :root{
@@ -51,247 +51,33 @@ html, body{
   width:var(--scene-width);
   height:var(--scene-height);
   overflow:hidden;
-  background-image:url("kip-bg.png");
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
+  background:#000;
   transform-origin:top left;
 }
 
-.scene::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(circle at 48% 78%, rgba(255, 0, 110, 0.08), transparent 24%),
-    radial-gradient(circle at 27% 82%, rgba(0, 120, 255, 0.10), transparent 26%),
-    linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.10));
-  pointer-events:none;
-  z-index:2;
-}
 
-/* BACKGROUND ANIMAT */
-.car-tail-left,
-.car-tail-right{
-  position:absolute;
-  top:1518px;
-  width:92px;
-  height:20px;
-  border-radius:30px;
-  background:rgba(255, 32, 78, 0.16);
-  filter:blur(7px);
-  animation:realisticLights 1.15s infinite ease-in-out;
-  z-index:6;
-}
 
-.car-tail-left{
-  left:332px;
-  transform:rotate(-2deg);
-}
 
-.car-tail-right{
-  right:334px;
-  transform:rotate(2deg);
-}
 
-@keyframes realisticLights{
-  0%,42%{
-    opacity:.20;
-    filter:blur(6px);
-    box-shadow:
-      0 0 8px rgba(255,40,90,.18),
-      0 0 18px rgba(255,0,80,.12);
-  }
-  50%,100%{
-    opacity:.95;
-    filter:blur(10px);
-    box-shadow:
-      0 0 18px rgba(255,50,100,.78),
-      0 0 44px rgba(255,0,90,.58),
-      0 0 95px rgba(255,0,80,.24);
-  }
-}
 
-.red-road-glow{
-  position:absolute;
-  left:240px;
-  bottom:120px;
-  width:590px;
-  height:220px;
-  background:
-    radial-gradient(circle at 32% 20%, rgba(255,0,80,.20), transparent 26%),
-    radial-gradient(circle at 68% 20%, rgba(255,0,80,.18), transparent 26%);
-  filter:blur(28px);
-  opacity:.42;
-  animation:roadGlow 1.15s infinite ease-in-out;
-  z-index:3;
-}
 
-@keyframes roadGlow{
-  0%,42%{opacity:.22;}
-  50%,100%{opacity:.56;}
-}
 
-.police-lightbar{
-  position:absolute;
-  left:45px;
-  top:1356px;
-  width:210px;
-  height:34px;
-  z-index:9;
-  pointer-events:none;
-  transform:rotate(-1deg);
-}
 
-.police-siren-red,
-.police-siren-blue{
-  position:absolute;
-  top:0;
-  width:96px;
-  height:24px;
-  border-radius:999px;
-  filter:blur(9px);
-}
 
-.police-siren-red{
-  left:0;
-  background:rgba(255,0,65,.90);
-  animation:redSiren 1.05s infinite ease-in-out;
-}
 
-.police-siren-blue{
-  right:0;
-  background:rgba(0,125,255,.90);
-  animation:blueSiren 1.05s infinite ease-in-out;
-}
 
-@keyframes redSiren{
-  0%,45%{
-    opacity:.96;
-    transform:scale(1.08);
-    box-shadow:
-      0 0 18px rgba(255,0,65,.95),
-      0 0 46px rgba(255,0,65,.52),
-      0 0 82px rgba(255,0,65,.28);
-  }
-  50%,100%{
-    opacity:.15;
-    transform:scale(.92);
-    box-shadow:0 0 8px rgba(255,0,65,.18);
-  }
-}
 
-@keyframes blueSiren{
-  0%,45%{
-    opacity:.15;
-    transform:scale(.92);
-    box-shadow:0 0 8px rgba(0,125,255,.18);
-  }
-  50%,100%{
-    opacity:.96;
-    transform:scale(1.08);
-    box-shadow:
-      0 0 18px rgba(0,125,255,.95),
-      0 0 46px rgba(0,125,255,.54),
-      0 0 82px rgba(0,125,255,.30);
-  }
-}
 
-.police-road-light{
-  position:absolute;
-  left:15px;
-  bottom:210px;
-  width:420px;
-  height:240px;
-  border-radius:50%;
-  filter:blur(34px);
-  background:
-    radial-gradient(circle at 30% 40%, rgba(255,0,65,.22), transparent 34%),
-    radial-gradient(circle at 70% 42%, rgba(0,120,255,.26), transparent 34%);
-  opacity:.50;
-  animation:policeRoadPulse 1.05s infinite ease-in-out;
-  z-index:3;
-}
 
-@keyframes policeRoadPulse{
-  0%,45%{
-    opacity:.42;
-    filter:blur(32px) hue-rotate(0deg);
-  }
-  50%,100%{
-    opacity:.62;
-    filter:blur(36px) hue-rotate(22deg);
-  }
-}
 
-.smoke{
-  position:absolute;
-  bottom:62px;
-  width:430px;
-  height:220px;
-  border-radius:50%;
-  filter:blur(32px);
-  opacity:.56;
-  z-index:8;
-  animation:smokeMove 5.8s infinite alternate ease-in-out;
-}
 
-.smoke::before,
-.smoke::after{
-  content:"";
-  position:absolute;
-  border-radius:50%;
-  filter:blur(24px);
-  opacity:.55;
-}
 
-.smoke::before{
-  width:220px;
-  height:120px;
-  left:60px;
-  top:45px;
-  background:rgba(255,255,255,.12);
-  animation:smokeBubbleOne 4.4s infinite alternate ease-in-out;
-}
 
-.smoke::after{
-  width:260px;
-  height:140px;
-  right:30px;
-  top:70px;
-  background:rgba(255,255,255,.09);
-  animation:smokeBubbleTwo 5.2s infinite alternate ease-in-out;
-}
 
-.smoke-left{
-  left:190px;
-  background:
-    radial-gradient(circle at 35% 48%, rgba(255,0,130,.28), transparent 42%),
-    radial-gradient(circle at 62% 54%, rgba(255,255,255,.13), transparent 45%);
-}
 
-.smoke-right{
-  right:150px;
-  background:
-    radial-gradient(circle at 45% 48%, rgba(0,160,255,.30), transparent 42%),
-    radial-gradient(circle at 60% 55%, rgba(255,255,255,.13), transparent 45%);
-  animation-delay:1.1s;
-}
 
-@keyframes smokeMove{
-  from{transform:translateX(-28px) translateY(8px) scale(.95);opacity:.38;}
-  to{transform:translateX(42px) translateY(-16px) scale(1.14);opacity:.68;}
-}
 
-@keyframes smokeBubbleOne{
-  from{transform:translateX(-20px) translateY(18px) scale(.9);opacity:.28;}
-  to{transform:translateX(46px) translateY(-22px) scale(1.22);opacity:.58;}
-}
 
-@keyframes smokeBubbleTwo{
-  from{transform:translateX(28px) translateY(12px) scale(.88);opacity:.22;}
-  to{transform:translateX(-42px) translateY(-26px) scale(1.18);opacity:.50;}
-}
 
 .particle{
   position:absolute;
@@ -310,25 +96,7 @@ html, body{
   100%{transform:translate3d(var(--drift), -680px, 0) scale(1.35);opacity:0;}
 }
 
-.bottom-pulse{
-  position:absolute;
-  left:0;
-  bottom:0;
-  width:1080px;
-  height:520px;
-  background:
-    radial-gradient(circle at 28% 74%, rgba(255,0,120,.10), transparent 28%),
-    radial-gradient(circle at 72% 74%, rgba(0,140,255,.10), transparent 30%);
-  filter:blur(26px);
-  opacity:.30;
-  animation:bottomPulse 3.5s infinite alternate ease-in-out;
-  z-index:1;
-}
 
-@keyframes bottomPulse{
-  from{opacity:.20;}
-  to{opacity:.42;}
-}
 
 /* SLIDE TEXT, ACUM IN ACELASI BROWSER SOURCE */
 .full-overlay{
@@ -701,21 +469,6 @@ html, body{
 <body>
   <div id="stage">
     <div class="scene" id="scene">
-      <div class="bottom-pulse"></div>
-      <div class="red-road-glow"></div>
-
-      <div class="police-lightbar">
-        <div class="police-siren-red"></div>
-        <div class="police-siren-blue"></div>
-      </div>
-
-      <div class="police-road-light"></div>
-
-      <div class="car-tail-left"></div>
-      <div class="car-tail-right"></div>
-
-      <div class="smoke smoke-left"></div>
-      <div class="smoke smoke-right"></div>
 
       <div class="full-overlay">
         <div class="mega-bar">

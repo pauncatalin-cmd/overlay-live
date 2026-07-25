@@ -515,10 +515,10 @@ html, body{
 .frame-logo-wrap{
   position:absolute;
   left:50%;
-  top:-6px;
+  top:14px;
   transform:translateX(-50%);
-  width:82px;
-  height:82px;
+  width:64px;
+  height:64px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -532,9 +532,8 @@ html, body{
   height:100%;
   object-fit:contain;
   filter:
-    drop-shadow(0 0 8px rgba(0,234,255,.95))
-    drop-shadow(0 0 16px rgba(255,79,216,.75))
-    drop-shadow(0 0 28px rgba(0,170,255,.45));
+    drop-shadow(0 0 4px rgba(0,234,255,.85))
+    drop-shadow(0 0 8px rgba(255,79,216,.45));
   animation:frameLogoGlow 2.2s ease-in-out infinite;
 }
 
@@ -544,21 +543,21 @@ html, body{
 
 @keyframes frameLogoFloat{
   0%,100%{transform:translateX(-50%) translateY(0) scale(1);}
+  50%{transform:translateX(-50%) translateY(-2px) scale(1.025);}
+}
   50%{transform:translateX(-50%) translateY(-5px) scale(1.035);}
 }
 
 @keyframes frameLogoGlow{
   0%,100%{
     filter:
-      drop-shadow(0 0 8px rgba(0,234,255,.9))
-      drop-shadow(0 0 16px rgba(255,79,216,.65))
-      drop-shadow(0 0 28px rgba(0,170,255,.4));
+      drop-shadow(0 0 4px rgba(0,234,255,.75))
+      drop-shadow(0 0 8px rgba(255,79,216,.35));
   }
   50%{
     filter:
-      drop-shadow(0 0 13px rgba(0,234,255,1))
-      drop-shadow(0 0 23px rgba(255,79,216,.95))
-      drop-shadow(0 0 38px rgba(0,170,255,.65));
+      drop-shadow(0 0 6px rgba(0,234,255,.95))
+      drop-shadow(0 0 11px rgba(255,79,216,.55));
   }
 }
 

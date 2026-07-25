@@ -463,6 +463,72 @@ html, body{
   height:32px;
   filter:drop-shadow(0 0 8px rgba(88,101,242,1));
 }
+
+/* CHENAR FIX, INDEPENDENT DE ANIMATIA TEXTULUI */
+.fixed-text-frame{
+  position:absolute;
+  left:50%;
+  top:74px;
+  transform:translateX(-50%);
+  width:960px;
+  height:76px;
+  border-radius:14px;
+  pointer-events:none;
+  z-index:3;
+}
+
+.fixed-text-frame::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:14px;
+  padding:2px;
+  background:
+    conic-gradient(
+      from var(--frame-angle),
+      rgba(0,170,255,.08),
+      rgba(0,234,255,.52),
+      rgba(32,255,215,.38),
+      rgba(0,170,255,.10),
+      rgba(0,234,255,.48),
+      rgba(0,170,255,.08)
+    );
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite:exclude;
+
+  animation:fixedFrameRotate 4s linear infinite;
+  filter:drop-shadow(0 0 5px rgba(0,234,255,.22));
+}
+
+.fixed-text-frame::after{
+  content:"";
+  position:absolute;
+  inset:1px;
+  border-radius:13px;
+  border:1px solid rgba(0,234,255,.20);
+  box-shadow:
+    0 0 7px rgba(0,234,255,.10),
+    inset 0 0 6px rgba(0,234,255,.06);
+}
+
+@property --frame-angle{
+  syntax:"<angle>";
+  initial-value:0deg;
+  inherits:false;
+}
+
+@keyframes fixedFrameRotate{
+  to{--frame-angle:360deg;}
+}
+
 </style>
 </head>
 
@@ -471,6 +537,7 @@ html, body{
     <div class="scene" id="scene">
 
       <div class="full-overlay">
+        <div class="fixed-text-frame"></div>
         <div class="mega-bar">
           <div class="row row-bottom" id="mainRow"></div>
         </div>

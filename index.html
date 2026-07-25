@@ -515,10 +515,10 @@ html, body{
 .frame-logo-wrap{
   position:absolute;
   left:50%;
-  top:32px;
+  top:-6px;
   transform:translateX(-50%);
-  width:88px;
-  height:88px;
+  width:82px;
+  height:82px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -539,17 +539,7 @@ html, body{
 }
 
 .frame-logo-wrap::after{
-  content:"";
-  position:absolute;
-  left:50%;
-  bottom:2px;
-  transform:translateX(-50%);
-  width:76px;
-  height:5px;
-  border-radius:999px;
-  background:linear-gradient(90deg, transparent, var(--cyan), var(--pink), transparent);
-  filter:blur(1px) drop-shadow(0 0 8px var(--cyan));
-  animation:logoLinePulse 1.8s ease-in-out infinite;
+  display:none;
 }
 
 @keyframes frameLogoFloat{

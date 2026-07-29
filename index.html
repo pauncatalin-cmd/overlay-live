@@ -120,6 +120,67 @@ html, body{
 
 
 
+/* TEXTE PROMO CARE URCA PRINTRE PARTICULE, FARA CHENAR SAU FUNDAL */
+.floating-promo{
+  position:absolute;
+  left:0;
+  bottom:-70px;
+  z-index:12;
+  pointer-events:none;
+  white-space:nowrap;
+  opacity:0;
+  will-change:transform, opacity, filter;
+  animation:floatingPromoUp var(--float-duration) linear forwards;
+}
+
+.floating-promo-inner{
+  display:block;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:rgba(255,255,255,var(--float-opacity));
+  font-size:var(--float-size);
+  font-weight:1000;
+  letter-spacing:var(--float-spacing);
+  text-transform:uppercase;
+  text-shadow:
+    0 0 3px rgba(255,255,255,.72),
+    0 0 9px var(--float-color),
+    0 0 18px color-mix(in srgb, var(--float-color) 62%, transparent);
+  animation:floatingPromoPulse var(--pulse-duration) ease-in-out infinite;
+}
+
+@keyframes floatingPromoUp{
+  0%{
+    transform:translate3d(0,0,0) scale(.72) rotate(var(--float-rotate));
+    opacity:0;
+    filter:blur(calc(var(--float-blur) + 3px));
+  }
+  12%{
+    opacity:var(--float-opacity);
+    filter:blur(var(--float-blur));
+  }
+  42%{
+    transform:translate3d(var(--curve-a), -315px, 0) scale(.92) rotate(calc(var(--float-rotate) * .35));
+    opacity:calc(var(--float-opacity) * .92);
+  }
+  72%{
+    transform:translate3d(var(--curve-b), -545px, 0) scale(1.02) rotate(calc(var(--float-rotate) * -.25));
+    opacity:calc(var(--float-opacity) * .68);
+  }
+  100%{
+    transform:translate3d(var(--float-drift), -780px, 0) scale(1.10) rotate(calc(var(--float-rotate) * -.55));
+    opacity:0;
+    filter:blur(calc(var(--float-blur) + 2px));
+  }
+}
+
+@keyframes floatingPromoPulse{
+  0%,100%{transform:scale(1);filter:brightness(1);}
+  50%{transform:scale(var(--pulse-scale));filter:brightness(1.16);}
+}
+
+
 /* SLIDE TEXT, ACUM IN ACELASI BROWSER SOURCE */
 .full-overlay{
   position:absolute;
@@ -713,6 +774,82 @@ setInterval(() => {
   });
 }, 1800);
 
+
+/* TEXTE PROMO ALEATORII PRINTRE PARTICULE */
+const floatingPromoTexts = [
+  {text:"CODUL KIP PE SHOP PENTRU 5% BONUS", weight:5},
+  {text:"REFERRAL 13", weight:3},
+  {text:"KIP", weight:2}
+];
+
+const floatingPromoColors = ["#00eaff", "#ff4fd8", "#18ffb4", "#ffffff"];
+let activeFloatingPromos = 0;
+const maxFloatingPromos = 3;
+
+function weightedFloatingText(){
+  const total = floatingPromoTexts.reduce((sum, item) => sum + item.weight, 0);
+  let pick = Math.random() * total;
+
+  for(const item of floatingPromoTexts){
+    pick -= item.weight;
+    if(pick <= 0) return item.text;
+  }
+
+  return floatingPromoTexts[0].text;
+}
+
+function spawnFloatingPromo(){
+  if(activeFloatingPromos >= maxFloatingPromos) return;
+  if(Math.random() > 0.72) return;
+
+  const promo = document.createElement("div");
+  promo.className = "floating-promo";
+
+  const text = weightedFloatingText();
+  const color = floatingPromoColors[Math.floor(Math.random() * floatingPromoColors.length)];
+  const duration = 7.2 + Math.random() * 4.8;
+  const driftValue = Math.random() * 220 - 110;
+  const curveStrength = Math.random() < 0.20 ? 1.45 : 0.72;
+  const curveA = driftValue * (0.22 + Math.random() * 0.28) + (Math.random() * 60 - 30) * curveStrength;
+  const curveB = driftValue * (0.58 + Math.random() * 0.22) + (Math.random() * 70 - 35) * curveStrength;
+  const rotate = (Math.random() * 16 - 8) + "deg";
+  const fontSize = text === "KIP" ? 24 + Math.random() * 10 : 18 + Math.random() * 8;
+  const opacity = 0.28 + Math.random() * 0.34;
+  const blur = Math.random() < 0.28 ? 0.8 + Math.random() * 1.2 : Math.random() * 0.35;
+  const spacing = text === "KIP" ? 3 + Math.random() * 4 : 0.4 + Math.random() * 1.4;
+  const estimatedWidth = text.length * fontSize * 0.62;
+  const safeLeft = Math.max(24, Math.random() * Math.max(40, 1080 - estimatedWidth - 24));
+
+  promo.style.left = safeLeft + "px";
+  promo.style.setProperty("--float-color", color);
+  promo.style.setProperty("--float-duration", duration + "s");
+  promo.style.setProperty("--float-drift", driftValue + "px");
+  promo.style.setProperty("--curve-a", curveA + "px");
+  promo.style.setProperty("--curve-b", curveB + "px");
+  promo.style.setProperty("--float-rotate", rotate);
+  promo.style.setProperty("--float-size", fontSize + "px");
+  promo.style.setProperty("--float-opacity", opacity.toFixed(2));
+  promo.style.setProperty("--float-blur", blur.toFixed(2) + "px");
+  promo.style.setProperty("--float-spacing", spacing.toFixed(1) + "px");
+  promo.style.setProperty("--pulse-duration", (1.6 + Math.random() * 1.2).toFixed(2) + "s");
+  promo.style.setProperty("--pulse-scale", (1.02 + Math.random() * 0.035).toFixed(3));
+
+  promo.innerHTML = `<div class="floating-promo-inner">${text}</div>`;
+
+  activeFloatingPromos++;
+  scene.appendChild(promo);
+
+  promo.addEventListener("animationend", () => {
+    promo.remove();
+    activeFloatingPromos = Math.max(0, activeFloatingPromos - 1);
+  }, {once:true});
+}
+
+setInterval(spawnFloatingPromo, 1250);
+setTimeout(spawnFloatingPromo, 900);
+setTimeout(spawnFloatingPromo, 2600);
+
+
 /* SLIDE TEXTE */
 const slideTime = 4500;
 const fadeOutTime = 300;
@@ -727,7 +864,7 @@ const promoItems = [
   {icon:"🎁", label:"ADAUGĂ", main:"REFERRAL 13 LA INCEPUT", mainClass:"green", pill:"MAȘINĂ + GEANTĂ"},
   {icon:"🔴", label:"LIVE PE", main:"TIKTOK", mainClass:"red", small:"KICK & YOUTUBE", platforms:true},
   {discord:true, label:"DISCORD", labelClass:"discord", main:"KIP SQUAD", mainClass:"green", pill:"LINK ÎN BIO"},
-  {thanks:true, main:"MULȚUMESC PENTRU APRECIERI!"}
+  {thanks:true, main:"MULȚUMESC PENTRU APRECIERI!"},
   {thanks:true, main:"AI DAT DEJA FOLLOW? 😄"}
 ];
 

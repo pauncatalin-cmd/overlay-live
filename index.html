@@ -120,7 +120,7 @@ html, body{
 
 
 
-/* TEXTE PROMO CARE URCA PRINTRE PARTICULE, FARA CHENAR SAU FUNDAL */
+/* TEXTE PROMO SI NUME DIN COMUNITATE, FARA CHENAR SAU FUNDAL */
 .floating-promo{
   position:absolute;
   left:0;
@@ -142,12 +142,20 @@ html, body{
   font-size:var(--float-size);
   font-weight:1000;
   letter-spacing:var(--float-spacing);
-  text-transform:uppercase;
+  text-transform:var(--float-transform);
   text-shadow:
-    0 0 3px rgba(255,255,255,.72),
-    0 0 9px var(--float-color),
-    0 0 18px color-mix(in srgb, var(--float-color) 62%, transparent);
+    0 0 var(--float-glow-small) var(--float-color),
+    0 0 var(--float-glow-large) color-mix(in srgb, var(--float-color) var(--float-glow-mix), transparent),
+    0 0 26px color-mix(in srgb, var(--float-color) 35%, transparent);
   animation:floatingPromoPulse var(--pulse-duration) ease-in-out infinite;
+}
+
+.floating-promo.community-name .floating-promo-inner{
+  font-weight:900;
+}
+
+.floating-promo.promo-text .floating-promo-inner{
+  font-weight:1000;
 }
 
 @keyframes floatingPromoUp{
@@ -775,14 +783,30 @@ setInterval(() => {
 }, 1800);
 
 
-/* TEXTE PROMO ALEATORII PRINTRE PARTICULE */
+/* TEXTE PROMO SI NUME ALEATORII PRINTRE PARTICULE */
 const floatingPromoTexts = [
   {text:"CODUL KIP PE SHOP PENTRU 5% BONUS", weight:5},
-  {text:"REFERRAL 13", weight:3},
-  {text:"KIP", weight:2}
+  {text:"REFERRAL 13", weight:3}
 ];
 
-const floatingPromoColors = ["#00eaff", "#ff4fd8", "#18ffb4", "#ffffff"];
+const communityNames = [
+  "Ria",
+  "Roxana",
+  "Florela",
+  "Dani",
+  "Pablo",
+  "Un Străin",
+  "Faruk",
+  "Petrea",
+  "Ioana" 
+];
+
+const floatingNeonColors = [
+  "#00eaff", /* cyan */
+  "#00aaff", /* blue */
+  "#7a5cff", /* mov */
+  "#ff4fd8"  /* roz */
+];
 let activeFloatingPromos = 0;
 const maxFloatingPromos = 3;
 
@@ -798,27 +822,44 @@ function weightedFloatingText(){
   return floatingPromoTexts[0].text;
 }
 
-function spawnFloatingPromo(){
-  if(activeFloatingPromos >= maxFloatingPromos) return;
-  if(Math.random() > 0.72) return;
+function randomCommunityName(excludedName = ""){
+  const available = communityNames.filter(name => name !== excludedName);
+  return available[Math.floor(Math.random() * available.length)];
+}
+
+function createFloatingText(kind, forcedText = "", leftBias = null){
+  if(activeFloatingPromos >= maxFloatingPromos) return null;
 
   const promo = document.createElement("div");
-  promo.className = "floating-promo";
+  const isCommunity = kind === "community";
+  promo.className = `floating-promo ${isCommunity ? "community-name" : "promo-text"}`;
 
-  const text = weightedFloatingText();
-  const color = floatingPromoColors[Math.floor(Math.random() * floatingPromoColors.length)];
-  const duration = 7.2 + Math.random() * 4.8;
+  const text = forcedText || (isCommunity ? randomCommunityName() : weightedFloatingText());
+  const color = floatingNeonColors[
+    Math.floor(Math.random() * floatingNeonColors.length)
+  ];
+
+  const duration = isCommunity
+    ? 8.0 + Math.random() * 4.8
+    : 7.2 + Math.random() * 4.8;
   const driftValue = Math.random() * 220 - 110;
   const curveStrength = Math.random() < 0.20 ? 1.45 : 0.72;
   const curveA = driftValue * (0.22 + Math.random() * 0.28) + (Math.random() * 60 - 30) * curveStrength;
   const curveB = driftValue * (0.58 + Math.random() * 0.22) + (Math.random() * 70 - 35) * curveStrength;
   const rotate = (Math.random() * 16 - 8) + "deg";
-  const fontSize = text === "KIP" ? 24 + Math.random() * 10 : 18 + Math.random() * 8;
-  const opacity = 0.28 + Math.random() * 0.34;
+  const fontSize = isCommunity
+    ? (18 + Math.random() * 10) * 1.10
+    : 18 + Math.random() * 8;
+  const opacity = isCommunity
+    ? 0.20 + Math.random() * 0.25
+    : 0.28 + Math.random() * 0.34;
   const blur = Math.random() < 0.28 ? 0.8 + Math.random() * 1.2 : Math.random() * 0.35;
-  const spacing = text === "KIP" ? 3 + Math.random() * 4 : 0.4 + Math.random() * 1.4;
+  const spacing = 0.4 + Math.random() * 1.4;
   const estimatedWidth = text.length * fontSize * 0.62;
-  const safeLeft = Math.max(24, Math.random() * Math.max(40, 1080 - estimatedWidth - 24));
+  const randomLeft = Math.max(24, Math.random() * Math.max(40, 1080 - estimatedWidth - 24));
+  const safeLeft = leftBias === null
+    ? randomLeft
+    : Math.max(24, Math.min(1080 - estimatedWidth - 24, leftBias + Math.random() * 70 - 35));
 
   promo.style.left = safeLeft + "px";
   promo.style.setProperty("--float-color", color);
@@ -833,6 +874,11 @@ function spawnFloatingPromo(){
   promo.style.setProperty("--float-spacing", spacing.toFixed(1) + "px");
   promo.style.setProperty("--pulse-duration", (1.6 + Math.random() * 1.2).toFixed(2) + "s");
   promo.style.setProperty("--pulse-scale", (1.02 + Math.random() * 0.035).toFixed(3));
+  promo.style.setProperty("--float-transform", isCommunity ? "none" : "uppercase");
+  promo.style.setProperty("--float-white-glow", "0");
+  promo.style.setProperty("--float-glow-small", (7 + Math.random() * 4).toFixed(1) + "px");
+  promo.style.setProperty("--float-glow-large", (15 + Math.random() * 7).toFixed(1) + "px");
+  promo.style.setProperty("--float-glow-mix", (58 + Math.random() * 18).toFixed(0) + "%");
 
   promo.innerHTML = `<div class="floating-promo-inner">${text}</div>`;
 
@@ -843,6 +889,29 @@ function spawnFloatingPromo(){
     promo.remove();
     activeFloatingPromos = Math.max(0, activeFloatingPromos - 1);
   }, {once:true});
+
+  return {text, left:safeLeft};
+}
+
+function spawnFloatingPromo(){
+  if(activeFloatingPromos >= maxFloatingPromos) return;
+
+  /* Aproximativ 65% raman doar particule, 20% nume, 15% promo. */
+  const roll = Math.random();
+  if(roll < 0.65) return;
+
+  if(roll < 0.85){
+    const first = createFloatingText("community");
+
+    /* Foarte rar urca doua nume apropiate. */
+    if(first && activeFloatingPromos < maxFloatingPromos && Math.random() < 0.045){
+      setTimeout(() => {
+        createFloatingText("community", randomCommunityName(first.text), first.left + 80);
+      }, 350 + Math.random() * 450);
+    }
+  } else {
+    createFloatingText("promo");
+  }
 }
 
 setInterval(spawnFloatingPromo, 1250);

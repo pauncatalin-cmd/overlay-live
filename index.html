@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>RIA Text and Particles Overlay</title>
+<title>KIP Text and Particles Overlay</title>
 
 <style>
 :root{
@@ -17,12 +17,12 @@
   --slide-font-size:26px;
   --thanks-font-size:26px;
 
-  --blue:#b84dff;
-  --cyan:#ff4fd8;
-  --green:#c35cff;
-  --red:#ff4fd8;
+  --blue:#00aaff;
+  --cyan:#00eaff;
+  --green:#39ff14;
+  --red:#ff1744;
   --pink:#ff4fd8;
-  --discord:#a855f7;
+  --discord:#5865F2;
 }
 
 *{
@@ -104,7 +104,7 @@ html, body{
 .particle{
   position:absolute;
   bottom:-18px;
-  
+  border-radius:50%;
   opacity:0;
   z-index:10;
   animation-name:particleUp;
@@ -114,8 +114,8 @@ html, body{
 
 @keyframes particleUp{
   0%{transform:translate3d(0,0,0) scale(.45);opacity:0;}
-  8%{opacity:.9;}
-  100%{transform:translate3d(var(--drift), -1180px, 0) scale(1.35);opacity:0;}
+  12%{opacity:.9;}
+  100%{transform:translate3d(var(--drift), -680px, 0) scale(1.35);opacity:0;}
 }
 
 
@@ -260,7 +260,7 @@ html, body{
     0 0 4px #ffffff,
     0 0 10px var(--pink),
     0 0 18px rgba(255,79,216,.75),
-    0 0 26px rgba(255,79,216,.45);
+    0 0 26px rgba(0,234,255,.45);
 }
 
 .slide.entering{
@@ -339,8 +339,8 @@ html, body{
   flex-shrink:0;
   z-index:5;
   filter:
-    drop-shadow(0 0 10px rgba(255,79,216,.95))
-    drop-shadow(0 0 18px rgba(195,92,255,.55));
+    drop-shadow(0 0 10px rgba(0,234,255,.95))
+    drop-shadow(0 0 18px rgba(57,255,20,.55));
   animation:logoFloat 2.4s ease-in-out infinite;
 }
 
@@ -373,7 +373,7 @@ html, body{
   text-shadow:
     0 1px 2px rgba(0,0,0,.9),
     0 0 5px rgba(255,255,255,.75),
-    0 0 9px rgba(255,79,216,.45);
+    0 0 9px rgba(0,234,255,.45);
 }
 
 .main{
@@ -383,8 +383,8 @@ html, body{
   line-height:1;
   text-shadow:
     0 2px 3px rgba(0,0,0,.9),
-    0 0 6px rgba(184,77,255,.75),
-    0 0 13px rgba(255,79,216,.38);
+    0 0 6px rgba(0,170,255,.75),
+    0 0 13px rgba(0,234,255,.38);
 }
 
 .troll-main{
@@ -405,15 +405,15 @@ html, body{
   text-shadow:
     0 1px 2px rgba(0,0,0,.9),
     0 0 5px rgba(255,255,255,.72),
-    0 0 9px rgba(255,79,216,.38);
+    0 0 9px rgba(0,234,255,.38);
 }
 
 .green{
   color:var(--green);
   text-shadow:
     0 2px 3px rgba(0,0,0,.9),
-    0 0 6px rgba(195,92,255,.8),
-    0 0 13px rgba(195,92,255,.42);
+    0 0 6px rgba(57,255,20,.8),
+    0 0 13px rgba(57,255,20,.42);
 }
 
 .red{
@@ -428,8 +428,8 @@ html, body{
   color:var(--discord);
   text-shadow:
     0 2px 3px rgba(0,0,0,.9),
-    0 0 6px rgba(168,85,247,.8),
-    0 0 13px rgba(168,85,247,.42);
+    0 0 6px rgba(88,101,242,.8),
+    0 0 13px rgba(88,101,242,.42);
 }
 
 .char{
@@ -443,7 +443,7 @@ html, body{
   position:absolute;
   width:4px;
   height:4px;
-  
+  border-radius:50%;
   background:var(--pink);
   box-shadow:
     0 0 8px var(--pink),
@@ -458,7 +458,7 @@ html, body{
   background:var(--cyan);
   box-shadow:
     0 0 8px var(--cyan),
-    0 0 18px rgba(255,79,216,.9);
+    0 0 18px rgba(0,234,255,.9);
 }
 
 @keyframes sparkMove{
@@ -479,7 +479,7 @@ html, body{
   white-space:nowrap;
   box-shadow:
     0 0 12px var(--green),
-    0 0 24px rgba(195,92,255,.8);
+    0 0 24px rgba(57,255,20,.8);
   animation:pillPulse 1.8s ease-in-out infinite;
 }
 
@@ -513,14 +513,14 @@ html, body{
   color:white;
   font-size:17px;
   font-weight:1000;
-  box-shadow:0 0 12px rgba(255,79,216,.9);
+  box-shadow:0 0 12px rgba(0,234,255,.9);
   animation:platformBounce 1.8s ease-in-out infinite;
 }
 
 .platform.kick{
   border-color:var(--green);
   color:var(--green);
-  box-shadow:0 0 12px rgba(195,92,255,.9);
+  box-shadow:0 0 12px rgba(57,255,20,.9);
 }
 
 .platform.yt{
@@ -540,10 +540,10 @@ html, body{
   display:grid;
   place-items:center;
   border-radius:14px;
-  background:rgba(168,85,247,.18);
+  background:rgba(88,101,242,.18);
   box-shadow:
-    0 0 14px rgba(168,85,247,1),
-    0 0 28px rgba(168,85,247,.75);
+    0 0 14px rgba(88,101,242,1),
+    0 0 28px rgba(88,101,242,.75);
   animation:logoFloat 2.4s ease-in-out infinite;
   z-index:6;
 }
@@ -551,10 +551,10 @@ html, body{
 .discord-logo svg{
   width:32px;
   height:32px;
-  filter:drop-shadow(0 0 8px rgba(168,85,247,1));
+  filter:drop-shadow(0 0 8px rgba(88,101,242,1));
 }
 
-/* CHENAR FIX, CU TEXTUL RIA RIDICAT SI INTEGRAT IN LINIA DE SUS */
+/* CHENAR FIX, CU TEXTUL KIP RIDICAT SI INTEGRAT IN LINIA DE SUS */
 .fixed-text-frame{
   position:absolute;
   left:0;
@@ -575,15 +575,15 @@ html, body{
   height:3px;
   background:linear-gradient(
     90deg,
-    rgba(184,77,255,.18) 0%,
-    rgba(255,79,216,.95) 20%,
+    rgba(0,170,255,.18) 0%,
+    rgba(0,234,255,.95) 20%,
     rgba(255,79,216,.95) 50%,
-    rgba(255,79,216,.95) 80%,
-    rgba(184,77,255,.18) 100%
+    rgba(0,234,255,.95) 80%,
+    rgba(0,170,255,.18) 100%
   );
   background-size:220% 100%;
   filter:
-    drop-shadow(0 0 4px rgba(255,79,216,.95))
+    drop-shadow(0 0 4px rgba(0,234,255,.95))
     drop-shadow(0 0 10px rgba(255,79,216,.45));
   animation:frameFlow 3.2s linear infinite reverse;
 }
@@ -599,21 +599,21 @@ html, body{
   z-index:2;
   pointer-events:none;
   filter:
-    drop-shadow(0 0 4px rgba(255,79,216,.95))
+    drop-shadow(0 0 4px rgba(0,234,255,.95))
     drop-shadow(0 0 10px rgba(255,79,216,.45));
 }
 
 .frame-top-svg path{
   fill:none;
-  stroke:url(#riaFrameGradient);
+  stroke:url(#kipFrameGradient);
   stroke-width:3;
   stroke-linecap:round;
   stroke-linejoin:round;
   vector-effect:non-scaling-stroke;
 }
 
-/* Textul RIA sta in interiorul formei ridicate */
-.ria-divider-title{
+/* Textul KIP sta in interiorul formei ridicate */
+.kip-divider-title{
   position:absolute;
   left:50%;
   top:-31px;
@@ -633,29 +633,29 @@ html, body{
   color:transparent;
   background:linear-gradient(
     90deg,
-    #ff4fd8 0%,
+    #00eaff 0%,
     #ffffff 22%,
-    #a855f7 42%,
+    #7a5cff 42%,
     #ff4fd8 58%,
     #ffffff 78%,
-    #ff4fd8 100%
+    #00eaff 100%
   );
   background-size:220% 100%;
   -webkit-background-clip:text;
   background-clip:text;
   text-shadow:
     0 0 5px rgba(255,255,255,.85),
-    0 0 11px rgba(255,79,216,.95),
+    0 0 11px rgba(0,234,255,.95),
     0 0 17px rgba(255,79,216,.72);
   z-index:5;
   animation:
-    riaTextFlow 3.2s linear infinite,
-    riaPulse 2.2s ease-in-out infinite;
+    kipTextFlow 3.2s linear infinite,
+    kipPulse 2.2s ease-in-out infinite;
 }
 
-/* Nu exista nicio linie sub textul RIA */
-.ria-divider-title::before,
-.ria-divider-title::after{
+/* Nu exista nicio linie sub textul KIP */
+.kip-divider-title::before,
+.kip-divider-title::after{
   display:none;
 }
 
@@ -664,12 +664,12 @@ html, body{
   to{background-position:220% 50%;}
 }
 
-@keyframes riaTextFlow{
+@keyframes kipTextFlow{
   from{background-position:0% 50%;}
   to{background-position:220% 50%;}
 }
 
-@keyframes riaPulse{
+@keyframes kipPulse{
   0%,100%{
     transform:translateX(-50%) scale(1);
     filter:brightness(1);
@@ -693,17 +693,17 @@ html, body{
         <div class="fixed-text-frame">
           <svg class="frame-top-svg" viewBox="0 0 1080 39" preserveAspectRatio="none" aria-hidden="true">
             <defs>
-              <linearGradient id="riaFrameGradient" x1="0" y1="0" x2="1080" y2="0" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#8b2cff" stop-opacity=".45"/>
-                <stop offset="20%" stop-color="#c35cff"/>
+              <linearGradient id="kipFrameGradient" x1="0" y1="0" x2="1080" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#00aaff" stop-opacity=".35"/>
+                <stop offset="20%" stop-color="#00eaff"/>
                 <stop offset="50%" stop-color="#ff4fd8"/>
-                <stop offset="80%" stop-color="#c35cff"/>
-                <stop offset="100%" stop-color="#8b2cff" stop-opacity=".45"/>
+                <stop offset="80%" stop-color="#00eaff"/>
+                <stop offset="100%" stop-color="#00aaff" stop-opacity=".35"/>
               </linearGradient>
             </defs>
             <path d="M 0 37 H 444 L 464 2 H 616 L 636 37 H 1080"/>
           </svg>
-          <div class="ria-divider-title">RIA</div>
+          <div class="kip-divider-title">KIP</div>
         </div>
         <div class="mega-bar">
           <div class="row row-bottom" id="mainRow"></div>
@@ -737,7 +737,7 @@ window.addEventListener("load", fitScene);
 fitScene();
 
 /* PARTICULE BACKGROUND */
-const colors = ["#ff4fd8", "#c35cff", "#ffffff", "#a855f7"];
+const colors = ["#00eaff", "#ff2bd6", "#ffffff", "#18ffb4"];
 const particleCount = 46;
 
 function createParticle(){
@@ -752,14 +752,10 @@ function createParticle(){
   const color = colors[Math.floor(Math.random() * colors.length)];
 
   p.style.left = left + "px";
-  p.textContent="❤";
-  p.style.color=color;
-  p.style.fontSize=(size*4)+"px";
-  p.style.width="auto";
-  p.style.height="auto";
-  p.style.background="transparent";
-  p.style.boxShadow="none";
-  p.style.textShadow="0 0 8px "+color+",0 0 16px "+color;
+  p.style.width = size + "px";
+  p.style.height = size + "px";
+  p.style.background = color;
+  p.style.boxShadow = "0 0 12px " + color + ", 0 0 24px " + color;
   p.style.animationDuration = duration + "s";
   p.style.animationDelay = delay + "s";
   p.style.setProperty("--drift", drift);
@@ -779,8 +775,8 @@ setInterval(() => {
       const color = colors[Math.floor(Math.random() * colors.length)];
 
       p.style.left = left + "px";
-      p.style.color=color;
-      p.style.textShadow="0 0 8px "+color+",0 0 16px "+color;
+      p.style.background = color;
+      p.style.boxShadow = "0 0 12px " + color + ", 0 0 24px " + color;
       p.style.setProperty("--drift", drift);
     }
   });
@@ -788,13 +784,27 @@ setInterval(() => {
 
 
 /* TEXTE PROMO SI NUME ALEATORII PRINTRE PARTICULE */
-const floatingPromoTexts_DISABLED = [
-  {text:"CODUL RIA PE SHOP PENTRU 5% BONUS", weight:5},
-  {text:"REFERRAL 89", weight:3},
-  {text:"RIA", weight:2}
+const floatingPromoTexts = [
+  {text:"CODUL KIP PE SHOP PENTRU 5% BONUS", weight:5},
+  {text:"REFERRAL 13", weight:3},
+  {text:"KIP", weight:2}
 ];
 
-const floatingPromoColors = ["#ff4fd8", "#c35cff", "#a855f7", "#ffffff"];
+const communityNames = [
+  "Ria",
+  "Roxana",
+  "Florela",
+  "Dani",
+  "Pablo",
+  "Un Străin",
+  "Faruk",
+  "Petrea",
+  "Ioana",
+  "DJ_Events"
+];
+
+const floatingPromoColors = ["#00eaff", "#ff4fd8", "#18ffb4", "#ffffff"];
+const communityColor = "#eafcff";
 let activeFloatingPromos = 0;
 const maxFloatingPromos = 3;
 
@@ -810,26 +820,39 @@ function weightedFloatingText(){
   return floatingPromoTexts[0].text;
 }
 
+function randomCommunityName(excludedName = ""){
+  const available = communityNames.filter(name => name !== excludedName);
+  return available[Math.floor(Math.random() * available.length)];
+}
+
 function createFloatingText(kind, forcedText = "", leftBias = null){
   if(activeFloatingPromos >= maxFloatingPromos) return null;
 
   const promo = document.createElement("div");
-  const isCommunity = false;
-  promo.className = "floating-promo promo-text";
+  const isCommunity = kind === "community";
+  promo.className = `floating-promo ${isCommunity ? "community-name" : "promo-text"}`;
 
-  const text = forcedText || weightedFloatingText();
-  const color = floatingPromoColors[Math.floor(Math.random() * floatingPromoColors.length)];
+  const text = forcedText || (isCommunity ? randomCommunityName() : weightedFloatingText());
+  const color = isCommunity
+    ? communityColor
+    : floatingPromoColors[Math.floor(Math.random() * floatingPromoColors.length)];
 
-  const duration = 7.2 + Math.random() * 4.8;
+  const duration = isCommunity
+    ? 8.0 + Math.random() * 4.8
+    : 7.2 + Math.random() * 4.8;
   const driftValue = Math.random() * 220 - 110;
   const curveStrength = Math.random() < 0.20 ? 1.45 : 0.72;
   const curveA = driftValue * (0.22 + Math.random() * 0.28) + (Math.random() * 60 - 30) * curveStrength;
   const curveB = driftValue * (0.58 + Math.random() * 0.22) + (Math.random() * 70 - 35) * curveStrength;
   const rotate = (Math.random() * 16 - 8) + "deg";
-  const fontSize = text === "RIA" ? 24 + Math.random() * 10 : 18 + Math.random() * 8;
-  const opacity = 0.28 + Math.random() * 0.34;
+  const fontSize = isCommunity
+    ? 18 + Math.random() * 10
+    : (text === "KIP" ? 24 + Math.random() * 10 : 18 + Math.random() * 8);
+  const opacity = isCommunity
+    ? 0.55 + Math.random() * 0.25
+    : 0.28 + Math.random() * 0.34;
   const blur = Math.random() < 0.28 ? 0.8 + Math.random() * 1.2 : Math.random() * 0.35;
-  const spacing = text === "RIA"
+  const spacing = !isCommunity && text === "KIP"
     ? 3 + Math.random() * 4
     : 0.4 + Math.random() * 1.4;
   const estimatedWidth = text.length * fontSize * 0.62;
@@ -851,11 +874,11 @@ function createFloatingText(kind, forcedText = "", leftBias = null){
   promo.style.setProperty("--float-spacing", spacing.toFixed(1) + "px");
   promo.style.setProperty("--pulse-duration", (1.6 + Math.random() * 1.2).toFixed(2) + "s");
   promo.style.setProperty("--pulse-scale", (1.02 + Math.random() * 0.035).toFixed(3));
-  promo.style.setProperty("--float-transform", "uppercase");
+  promo.style.setProperty("--float-transform", isCommunity ? "none" : "uppercase");
   promo.style.setProperty("--float-white-glow", "0");
-  promo.style.setProperty("--float-glow-small", "9px");
-  promo.style.setProperty("--float-glow-large", "18px");
-  promo.style.setProperty("--float-glow-mix", "62%");
+  promo.style.setProperty("--float-glow-small", isCommunity ? "12px" : "9px");
+  promo.style.setProperty("--float-glow-large", isCommunity ? "24px" : "18px");
+  promo.style.setProperty("--float-glow-mix", isCommunity ? "75%" : "62%");
 
   promo.innerHTML = `<div class="floating-promo-inner">${text}</div>`;
 
@@ -871,13 +894,24 @@ function createFloatingText(kind, forcedText = "", leftBias = null){
 }
 
 function spawnFloatingPromo(){
-  return;
   if(activeFloatingPromos >= maxFloatingPromos) return;
 
-  /* Majoritatea raman doar particule, ocazional apare un text promo. */
-  if(Math.random() < 0.78) return;
-  createFloatingText("promo");
+  /* Aproximativ 65% raman doar particule, 20% nume, 15% promo. */
+  const roll = Math.random();
+  if(roll < 0.65) return;
 
+  if(roll < 0.85){
+    const first = createFloatingText("community");
+
+    /* Foarte rar urca doua nume apropiate. */
+    if(first && activeFloatingPromos < maxFloatingPromos && Math.random() < 0.045){
+      setTimeout(() => {
+        createFloatingText("community", randomCommunityName(first.text), first.left + 80);
+      }, 350 + Math.random() * 450);
+    }
+  } else {
+    createFloatingText("promo");
+  }
 }
 
 setInterval(spawnFloatingPromo, 1250);
@@ -894,9 +928,11 @@ const trollItems = [];
 
 const promoItems = [
   {icon:"🛒", label:"B-ZONE", main:"SHOP", small:"INTRĂ PE SHOP"},
-  {icon:"🏷️", label:"CODUL", main:"RIA", mainClass:"green", small:"PE SHOP PENTRU + 5% BONUS!"},
+  {icon:"🏷️", label:"CODUL", main:"KIP", mainClass:"green", small:"PE SHOP PENTRU + 5% BONUS!"},
   {icon:"🌐", label:"LINK SHOP", main:"GTA5.RO/SHOP"},
-  {icon:"🎁", label:"ADAUGĂ", main:"REFERRAL 89 LA INCEPUT", mainClass:"green", pill:"MAȘINĂ + GEANTĂ"},
+  {icon:"🎁", label:"ADAUGĂ", main:"REFERRAL 13 LA INCEPUT", mainClass:"green", pill:"MAȘINĂ + GEANTĂ"},
+  {icon:"🔴", label:"LIVE PE", main:"TIKTOK", mainClass:"red", small:"KICK & YOUTUBE", platforms:true},
+  {discord:true, label:"DISCORD", labelClass:"discord", main:"KIP SQUAD", mainClass:"green", pill:"LINK ÎN BIO"},
   {thanks:true, main:"MULȚUMESC PENTRU APRECIERI!"},
   {thanks:true, main:"POATE NU DAI FOLLOW 😄"}
 ];
@@ -932,8 +968,8 @@ function discordLogo(){
   return `
   <div class="discord-logo">
     <svg viewBox="0 0 245 240" xmlns="http://www.w3.org/2000/svg">
-      <path fill="#a855f7" d="M104.4 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.3-5 10.2-11.1.1-6.1-4.5-11.1-10.2-11.1zm36.2 0c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.3-5 10.2-11.1.1-6.1-4.5-11.1-10.2-11.1z"/>
-      <path fill="#a855f7" d="M189.5 20h-134C44.2 20 35 29.2 35 40.6v135.2c0 11.4 9.2 20.6 20.5 20.6h113.4l-5.3-18.5 12.8 11.9 12.1 11.2L210 220V40.6c0-11.4-9.2-20.6-20.5-20.6zm-38.6 130.6s-3.6-4.3-6.6-8.1c13.1-3.7 18.1-11.9 18.1-11.9-4.1 2.7-8 4.6-11.5 5.9-5 2.1-9.8 3.5-14.5 4.3-9.6 1.8-18.4 1.3-25.9-.1-5.7-1.1-10.6-2.7-14.7-4.3-2.3-.9-4.8-2-7.3-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.3-1.8-1-2.8-1.7-2.8-1.7s4.8 8 17.5 11.8c-3 3.8-6.7 8.3-6.7 8.3-22.1-.7-30.5-15.2-30.5-15.2 0-32.2 14.4-58.3 14.4-58.3 14.4-10.8 28.1-10.5 28.1-10.5l1 1.2c-18 5.2-26.3 13.1-26.3 13.1s2.2-1.2 5.9-2.9c10.7-4.7 19.2-6 22.7-6.3.6-.1 1.1-.2 1.7-.2 6.1-.8 13-1 20.2-.2 9.5 1.1 19.7 3.9 30.1 9.6 0 0-7.9-7.5-24.9-12.7l1.4-1.6s13.7-.3 28.1 10.5c0 0 14.4 26.1 14.4 58.3 0 0-8.5 14.5-30.6 15.2z"/>
+      <path fill="#5865F2" d="M104.4 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.3-5 10.2-11.1.1-6.1-4.5-11.1-10.2-11.1zm36.2 0c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.3-5 10.2-11.1.1-6.1-4.5-11.1-10.2-11.1z"/>
+      <path fill="#5865F2" d="M189.5 20h-134C44.2 20 35 29.2 35 40.6v135.2c0 11.4 9.2 20.6 20.5 20.6h113.4l-5.3-18.5 12.8 11.9 12.1 11.2L210 220V40.6c0-11.4-9.2-20.6-20.5-20.6zm-38.6 130.6s-3.6-4.3-6.6-8.1c13.1-3.7 18.1-11.9 18.1-11.9-4.1 2.7-8 4.6-11.5 5.9-5 2.1-9.8 3.5-14.5 4.3-9.6 1.8-18.4 1.3-25.9-.1-5.7-1.1-10.6-2.7-14.7-4.3-2.3-.9-4.8-2-7.3-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.3-1.8-1-2.8-1.7-2.8-1.7s4.8 8 17.5 11.8c-3 3.8-6.7 8.3-6.7 8.3-22.1-.7-30.5-15.2-30.5-15.2 0-32.2 14.4-58.3 14.4-58.3 14.4-10.8 28.1-10.5 28.1-10.5l1 1.2c-18 5.2-26.3 13.1-26.3 13.1s2.2-1.2 5.9-2.9c10.7-4.7 19.2-6 22.7-6.3.6-.1 1.1-.2 1.7-.2 6.1-.8 13-1 20.2-.2 9.5 1.1 19.7 3.9 30.1 9.6 0 0-7.9-7.5-24.9-12.7l1.4-1.6s13.7-.3 28.1 10.5c0 0 14.4 26.1 14.4 58.3 0 0-8.5 14.5-30.6 15.2z"/>
     </svg>
   </div>`;
 }

@@ -416,6 +416,14 @@ html, body{
     0 0 13px rgba(57,255,20,.42);
 }
 
+.yellow{
+  color:#ffd700;
+  text-shadow:
+    0 2px 3px rgba(0,0,0,.9),
+    0 0 6px rgba(255,215,0,.85),
+    0 0 13px rgba(255,215,0,.48);
+}
+
 .red{
   color:var(--red);
   text-shadow:
@@ -552,6 +560,28 @@ html, body{
   width:32px;
   height:32px;
   filter:drop-shadow(0 0 8px rgba(88,101,242,1));
+}
+
+
+.platform-brand-logo{
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  z-index:6;
+  animation:logoFloat 2.4s ease-in-out infinite;
+}
+.platform-brand-logo svg{
+  width:44px;
+  height:44px;
+  display:block;
+}
+.platform-brand-logo.youtube{
+  filter:drop-shadow(0 0 10px rgba(255,0,0,.95)) drop-shadow(0 0 18px rgba(255,23,68,.55));
+}
+.platform-brand-logo.kick-brand{
+  filter:drop-shadow(0 0 10px rgba(83,252,24,.95)) drop-shadow(0 0 18px rgba(57,255,20,.55));
 }
 
 /* CHENAR FIX, CU TEXTUL KIP RIDICAT SI INTEGRAT IN LINIA DE SUS */
@@ -923,6 +953,10 @@ const fadeInTime = 360;
 const trollItems = [];
 
 const promoItems = [
+  {img:"logo(1).png", label:"SERVER:", labelClass:"red", main:"FPLAYT ROMANIA FIVEM", mainClass:"yellow"},
+  {img:"logo(1).png", label:"www.fplayt.ro", labelClass:"yellow", main:"", mainClass:"yellow", rightImg:"logo(1).png"},
+  {brand:"youtube", label:"FOLLOW SI PE YOUTUBE:", main:"kipanu", mainClass:"red"},
+  {brand:"kick", label:"TE ASTEPT SI PE KICK:", main:"kipzone", mainClass:"green"},
   {icon:"🔴", label:"LIVE PE", main:"TIKTOK", mainClass:"red", small:"KICK & YOUTUBE", platforms:true},
   {discord:true, label:"DISCORD", labelClass:"discord", main:"KIP Gaming", mainClass:"green", pill:"LINK ÎN BIO"},
   {thanks:true, main:"POATE NU DAI FOLLOW 😄"},
@@ -966,6 +1000,26 @@ function discordLogo(){
   </div>`;
 }
 
+function youtubeLogo(){
+  return `
+  <div class="platform-brand-logo youtube" aria-hidden="true">
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="14" width="56" height="36" rx="11" fill="#FF0000"/>
+      <path d="M27 23 L44 32 L27 41 Z" fill="#FFFFFF"/>
+    </svg>
+  </div>`;
+}
+
+function kickLogo(){
+  return `
+  <div class="platform-brand-logo kick-brand" aria-hidden="true">
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <rect x="5" y="5" width="54" height="54" rx="8" fill="#53FC18"/>
+      <path d="M18 16h10v12h8V16h10v10h-6v12h6v10H36V36h-8v12H18z" fill="#0B0B0B"/>
+    </svg>
+  </div>`;
+}
+
 function buildSlide(item, type){
   if(item.thanks){
     let html = `<div class="slide entering">`;
@@ -982,6 +1036,10 @@ function buildSlide(item, type){
 
   if(item.discord){
     html += discordLogo();
+  } else if(item.brand === "youtube"){
+    html += youtubeLogo();
+  } else if(item.brand === "kick"){
+    html += kickLogo();
   } else if(item.img){
     html += `<img class="logo" src="${item.img}">`;
   } else if(item.icon){
@@ -999,6 +1057,10 @@ function buildSlide(item, type){
 
   if(item.pill){
     html += `<div class="pill ${item.danger ? "danger-pill" : ""}">${item.pill}</div>`;
+  }
+
+  if(item.rightImg){
+    html += `<img class="logo" src="${item.rightImg}">`;
   }
 
   if(item.platforms){

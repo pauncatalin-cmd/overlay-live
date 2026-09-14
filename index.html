@@ -726,6 +726,105 @@ html, body{
   pointer-events:none;
 }
 
+
+/* DIALOG ANIMAT PENTRU CARACTERUL DIN DREAPTA JOS */
+.character-dialog{
+  position:absolute;
+  left:505px;
+  top:1440px;
+  width:410px;
+  min-height:92px;
+  padding:20px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(8,8,8,.94);
+  border:3px solid #ffd700;
+  border-radius:20px;
+  box-shadow:
+    0 0 8px rgba(255,215,0,.95),
+    0 0 22px rgba(255,215,0,.45),
+    inset 0 0 18px rgba(255,215,0,.08);
+  z-index:60;
+  pointer-events:none;
+  opacity:0;
+  transform:translate(45px,28px) scale(.15);
+  transform-origin:100% 100%;
+}
+
+.character-dialog::after{
+  content:"";
+  position:absolute;
+  right:-54px;
+  bottom:-28px;
+  width:72px;
+  height:46px;
+  background:#ffd700;
+  clip-path:polygon(0 0, 100% 100%, 24% 54%);
+  filter:drop-shadow(0 0 6px rgba(255,215,0,.9));
+}
+
+.character-dialog::before{
+  content:"";
+  position:absolute;
+  right:-43px;
+  bottom:-20px;
+  width:57px;
+  height:36px;
+  background:#080808;
+  clip-path:polygon(0 0, 100% 100%, 24% 54%);
+  z-index:1;
+}
+
+.character-dialog.show{
+  animation:dialogPopIn .42s cubic-bezier(.16,.85,.28,1.25) forwards;
+}
+
+.character-dialog.hide{
+  animation:dialogPopOut .32s ease-in forwards;
+}
+
+.dialog-text{
+  position:relative;
+  z-index:2;
+  color:#fff;
+  font-family:Arial Black, Impact, Arial, sans-serif;
+  font-size:25px;
+  font-weight:900;
+  line-height:1.25;
+  text-align:center;
+  text-shadow:
+    0 0 4px rgba(255,255,255,.75),
+    0 0 9px rgba(255,215,0,.75);
+}
+
+.dialog-cursor{
+  display:inline-block;
+  width:3px;
+  height:27px;
+  margin-left:5px;
+  vertical-align:-4px;
+  background:#ffd700;
+  box-shadow:0 0 7px rgba(255,215,0,.9);
+  animation:dialogCursor .65s steps(1) infinite;
+}
+
+@keyframes dialogPopIn{
+  0%{opacity:0;transform:translate(45px,28px) scale(.15);filter:blur(3px);}
+  68%{opacity:1;transform:translate(-4px,-3px) scale(1.04);filter:blur(0);}
+  100%{opacity:1;transform:translate(0,0) scale(1);filter:blur(0);}
+}
+
+@keyframes dialogPopOut{
+  0%{opacity:1;transform:translate(0,0) scale(1);}
+  100%{opacity:0;transform:translate(40px,24px) scale(.12);}
+}
+
+@keyframes dialogCursor{
+  0%,48%{opacity:1;}
+  49%,100%{opacity:0;}
+}
+
 </style>
 </head>
 
@@ -735,6 +834,10 @@ html, body{
 
       <div class="lower-black-background"></div>
       <div class="capture-bottom-line"></div>
+
+      <div class="character-dialog" id="characterDialog">
+        <div class="dialog-text"><span id="dialogTyped"></span><span class="dialog-cursor"></span></div>
+      </div>
 
       <div class="full-overlay">
         <div class="fixed-text-frame">
@@ -1147,6 +1250,58 @@ function startSlides(){
  },slideTime);
 }
 startSlides();
+
+/* DIALOG CU EFECT DE SCRIERE LA TASTATURA */
+const dialogMessages = [
+  "Nu uita sa dai follow...",
+  "Te astept si pe KICK",
+  "Te astept si pe Youtube",
+  "Multumesc pentru aprecieri",
+  "Hai cu tap tap-urile alea...",
+  "Hai ca putem!"
+];
+
+const characterDialog = document.getElementById("characterDialog");
+const dialogTyped = document.getElementById("dialogTyped");
+let dialogIndex = 0;
+
+const dialogTypeSpeed = 58;
+const dialogHoldTime = 2700;
+const dialogGapTime = 850;
+
+function typeDialogText(text, i = 0){
+  if(i === 0) dialogTyped.textContent = "";
+
+  if(i < text.length){
+    dialogTyped.textContent += text[i];
+    setTimeout(() => typeDialogText(text, i + 1), dialogTypeSpeed);
+    return;
+  }
+
+  setTimeout(hideDialog, dialogHoldTime);
+}
+
+function showDialog(){
+  const text = dialogMessages[dialogIndex];
+  characterDialog.classList.remove("hide");
+  characterDialog.classList.add("show");
+  dialogTyped.textContent = "";
+
+  setTimeout(() => typeDialogText(text), 390);
+}
+
+function hideDialog(){
+  characterDialog.classList.remove("show");
+  characterDialog.classList.add("hide");
+
+  setTimeout(() => {
+    dialogIndex = (dialogIndex + 1) % dialogMessages.length;
+    showDialog();
+  }, 320 + dialogGapTime);
+}
+
+setTimeout(showDialog, 1200);
+
 </script>
 </body>
 </html>

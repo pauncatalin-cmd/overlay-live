@@ -710,6 +710,22 @@ html, body{
   }
 }
 
+
+/* LINIE GALBENA DREAPTA SUB CAPTURA DE ECRAN */
+.capture-bottom-line{
+  position:absolute;
+  left:0;
+  top:1510px;
+  width:1080px;
+  height:3px;
+  background:#ffd700;
+  box-shadow:
+    0 0 6px rgba(255,215,0,.95),
+    0 0 14px rgba(255,215,0,.55);
+  z-index:30;
+  pointer-events:none;
+}
+
 </style>
 </head>
 
@@ -718,6 +734,7 @@ html, body{
     <div class="scene" id="scene">
 
       <div class="lower-black-background"></div>
+      <div class="capture-bottom-line"></div>
 
       <div class="full-overlay">
         <div class="fixed-text-frame">

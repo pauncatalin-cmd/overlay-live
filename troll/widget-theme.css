@@ -86,3 +86,4 @@ body{font-family:'Barlow Condensed',Impact,sans-serif!important;color:#f6f3e9!im
 .score .half.w .num b{color:#ffd34f!important}
 .score .half.l .num b{color:#ff9957!important}
 .score .half.l .plate>.in:before{background:linear-gradient(270deg,#ff7a26,transparent)!important;box-shadow:none!important}
+.timer .digits b{font-family:"Barlow Condensed",Impact,sans-serif!important;font-weight:800!important;font-size:110px!important;line-height:.78!important;padding-top:14px!important;filter:none!important}.timer .digits{margin-top:0!important}

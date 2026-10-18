@@ -1,0 +1,88 @@
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://pauncatalin-cmd.github.io/overlay-live/assets/font-0.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://pauncatalin-cmd.github.io/overlay-live/assets/font-1.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://pauncatalin-cmd.github.io/overlay-live/assets/font-2.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://pauncatalin-cmd.github.io/overlay-live/assets/font-3.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(https://pauncatalin-cmd.github.io/overlay-live/assets/font-4.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+  src: url(https://pauncatalin-cmd.github.io/overlay-live/assets/font-5.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+  src: url(https://pauncatalin-cmd.github.io/overlay-live/assets/font-6.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://pauncatalin-cmd.github.io/overlay-live/assets/font-7.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(https://pauncatalin-cmd.github.io/overlay-live/assets/font-8.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url(https://pauncatalin-cmd.github.io/overlay-live/assets/font-9.ttf) format('truetype');
+}
+
+
+
+/* Visual theme only: preserve TikStage data, DOM structure and interactions. */
+body{font-family:'Barlow Condensed',Impact,sans-serif!important;color:#f6f3e9!important;background:transparent!important}
+#w{--acc:#ffd34f!important;--acc-hi:#ffe391!important;--acc-lo:#a57b22!important;--acc-glow:rgba(255,211,79,.15)!important;--acc-tint:rgba(255,211,79,.08)!important;--acc-ink:#080a0b!important;--hot:#ff7a26!important;--hot-hi:#ffa56d!important;--hot-num:#ff9957!important;--hot-lo:#963e0e!important;--hot-glow:rgba(255,122,38,.15)!important;--pl:#080a0b!important;--pl-hi:#111416!important;--pl-lo:#080a0b!important;--pl-edge:#ffd34f55!important;--pl-rim:#ffd34f66!important;--pl-deep:#080a0b!important;--off:#23251e!important;--idle:#8d918a!important;--txt:#f6f3e9!important;--txt-lo:#d2d3c6!important;--txt-dim:#a6a8a6!important}
+.plate{background:#ffd34f55!important}
+.plate>.in{background:linear-gradient(120deg,#ffd34f08,transparent 60%),#080a0b!important}
+.plate>.in:after{display:none!important}
+.plate>.in:before{background:linear-gradient(90deg,#ffd34f,transparent)!important;box-shadow:none!important;height:2px!important}
+.shadowed{filter:drop-shadow(0 3px 5px #0007)!important}
+.spine{background:#ffd34f!important;box-shadow:none!important}
+.lbl,.top,.word{font-family:'Barlow Condensed',Impact,sans-serif!important;font-weight:700!important}
+.num b{font-family:'Barlow Condensed',Impact,sans-serif!important;font-weight:800!important;text-shadow:none!important;filter:none!important}
+.lbl,.tag,.ico{filter:none!important;text-shadow:none!important}
+.score .half.w .num b{color:#ffd34f!important}
+.score .half.l .num b{color:#ff9957!important}
+.score .half.l .plate>.in:before{background:linear-gradient(270deg,#ff7a26,transparent)!important;box-shadow:none!important}

@@ -1,0 +1,98 @@
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/font-0.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/font-1.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/font-2.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(assets/font-3.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(assets/font-4.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+  src: url(assets/font-5.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+  src: url(assets/font-6.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(assets/font-7.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(assets/font-8.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url(assets/font-9.ttf) format('truetype');
+}
+
+
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:transparent;font-family:Barlow,Arial,sans-serif;color:#f6f3e9}.scene{width:1080px;height:1920px;position:absolute;overflow:hidden;transform-origin:top left;isolation:isolate}.lower{position:absolute;inset:585px 0 0;background:radial-gradient(ellipse at 100% 50%,#b475181c,transparent 65%),radial-gradient(ellipse at 0% 30%,#00c5ed09,transparent 65%),#080a0b;z-index:-2}.lower:after{content:'';position:absolute;inset:0;background-image:linear-gradient(#ffffff04 1px,transparent 1px),linear-gradient(90deg,#ffffff04 1px,transparent 1px);background-size:80px 80px}.band{position:absolute;top:585px;left:0;width:1080px;height:112px;background:#080a0bf5;border-top:2px solid #ffd34f;border-bottom:1px solid #ffd34f66;display:flex;align-items:center;padding:0 34px;gap:34px}.brand{font:900 italic 54px/.9 'Barlow Condensed',Impact,sans-serif;white-space:nowrap;letter-spacing:-1px}.brand span{color:#ffd34f}.brand small{display:block;font:700 8px/1 Barlow,Arial,sans-serif;color:#a6a8a6;letter-spacing:3px;margin-top:10px}.rule{height:50px;width:1px;background:#ffd34f4d}.promo{display:flex;gap:20px;align-items:center;flex:1}.promo img{width:40px;height:40px}.promo small{display:block;font-size:11px;font-weight:700;letter-spacing:2px;color:#a6a8a6;margin-bottom:5px}.promo strong{font:800 32px/1 'Barlow Condensed',Impact,sans-serif}.live{font-size:10px;letter-spacing:2px;display:flex;align-items:center;gap:9px;color:#ffd34f}.dot{width:7px;height:7px;background:#ffd34f;border-radius:50%;box-shadow:0 0 12px #ffd34f77;animation:pulse 3s infinite}.capture-line{position:absolute;top:1315px;left:0;width:1080px;height:3px;background:linear-gradient(90deg,#00d9f5,#ffd34f 25%,#ffd34f 80%,#ff7a26)}.site{position:absolute;top:1333px;right:32px;color:#ffd34f;font:800 italic 19px/1 'Barlow Condensed',Impact,sans-serif;background:#080a0bdd;padding:5px 11px;border-left:2px solid #ffd34f}.side{position:absolute;top:1340px;bottom:26px;width:1px;background:linear-gradient(#ffd34f22,transparent)}.side.left{left:24px}.side.right{right:24px}.corner{position:absolute;bottom:25px;width:45px;height:3px;background:#ffd34f55}.corner.left{left:24px}.corner.right{right:24px}.glint{position:absolute;width:145px;height:1px;opacity:.3}.glint.cyan{left:-60px;top:1460px;background:#00d9f5;transform:rotate(-45deg)}.glint.orange{right:-60px;top:1690px;background:#ff7a26;transform:rotate(45deg)}
+@keyframes pulse{50%{opacity:.4}}@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+
+.promo{overflow:hidden;min-height:72px}
+.promo.leaving{animation:promoOut .30s ease-in both}
+.promo.entering{animation:promoIn .50s cubic-bezier(.2,.8,.2,1) both}
+.promo.entering strong{animation:handleIn .65s cubic-bezier(.16,1,.3,1) both}
+.promo.entering img{animation:iconIn .65s cubic-bezier(.16,1,.3,1) both}
+.promo.is-thanks strong{color:#ffd34f;font-style:italic;font-size:30px}
+.promo.is-thanks img{display:none}
+.promo-label{display:block}
+@keyframes promoOut{to{opacity:0;transform:translateY(-12px);filter:blur(3px)}}
+@keyframes promoIn{from{opacity:0;transform:translateY(16px);filter:blur(3px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes handleIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes iconIn{from{opacity:0;transform:scale(.75) rotate(-8deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+.promo strong{display:block}
+@media(prefers-reduced-motion:reduce){.promo,.promo strong,.promo img{animation:none!important}}
+
+/* Compositor animations: smooth at the browser's display frame rate. */
+.promo,.promo strong,.promo img{will-change:transform,opacity}
+.promo.is-sponsor{gap:18px}
+.promo.is-sponsor img{width:112px;height:44px;object-fit:contain}
+.promo.is-sponsor small{font-size:10px;letter-spacing:1.3px}
+.promo.is-sponsor strong{font-size:30px;color:#ffd34f}
+@keyframes promoOut{to{opacity:0;transform:translateY(-12px)}}
+@keyframes promoIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}

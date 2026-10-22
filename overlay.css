@@ -109,3 +109,18 @@
 .promo.is-account strong{font-size:34px;line-height:40px;white-space:nowrap}
 .promo.is-sponsor img{flex-basis:112px}
 .live{flex-shrink:0}
+
+/* Keep the capture border attached when the center band height changes. */
+:root{--band-top:585px;--band-height:88px;--capture-height:618px;--capture-bottom:calc(var(--band-top) + var(--band-height) + var(--capture-height))}
+.band{top:var(--band-top);height:var(--band-height)}
+.capture-line{top:var(--capture-bottom)}
+.site{top:calc(var(--capture-bottom) + 18px)}
+.side{top:calc(var(--capture-bottom) + 25px)}
+/* Flowing light uses the same 3.2 second gradient cycle as the shop preview. */
+.glint{width:180px;height:2px;opacity:.55;background-size:220% 100%;will-change:transform,opacity;pointer-events:none}
+.glint.cyan{top:calc(var(--capture-bottom) + 145px);background-image:linear-gradient(90deg,transparent,#00aaff55,#00d9f5,#c5faff,#00d9f5,transparent);box-shadow:0 0 9px #00d9f555;animation:cyanSweep 7s ease-in-out infinite,edgeFlow 3.2s linear infinite}
+.glint.orange{top:calc(var(--capture-bottom) + 375px);background-image:linear-gradient(90deg,transparent,#ff7a2655,#ff9b35,#ffe0b0,#ff7a26,transparent);box-shadow:0 0 9px #ff7a2655;animation:orangeSweep 7s ease-in-out -3.5s infinite,edgeFlow 3.2s linear infinite reverse}
+@keyframes edgeFlow{from{background-position:0% 50%}to{background-position:220% 50%}}
+@keyframes cyanSweep{0%,100%{opacity:.15;transform:translate3d(-20px,90px,0) rotate(-45deg)}50%{opacity:.8;transform:translate3d(28px,-70px,0) rotate(-45deg)}}
+@keyframes orangeSweep{0%,100%{opacity:.15;transform:translate3d(20px,-90px,0) rotate(45deg)}50%{opacity:.8;transform:translate3d(-28px,70px,0) rotate(45deg)}}
+@media(prefers-reduced-motion:reduce){.glint.cyan,.glint.orange{animation:none;opacity:.55}}

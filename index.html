@@ -10,5 +10,19 @@
 for(const name of ['tiktok.svg','discord.svg','yst.png','tikstage.svg']){const image=new Image();image.src='assets/'+name;}
 let i=0;const promo=document.querySelector('.promo');
 function renderPromo(){const p=items[i];promo.classList.toggle('is-account',!!p.account);promo.classList.toggle('is-thanks',!!p.thanks);promo.classList.toggle('is-sponsor',!!p.sponsor);if(p.icon) document.getElementById('platform-icon').src='assets/'+p.icon+(p.icon==='yst'?'.png':'.svg');document.getElementById('promo-label').textContent=p.label;document.getElementById('promo-handle').textContent=p.handle;promo.classList.remove('leaving');promo.classList.add('entering');}
-renderPromo();setInterval(()=>{promo.classList.remove('entering');promo.classList.add('leaving');setTimeout(()=>{i=(i+1)%items.length;renderPromo();},300);},4500);
+const community=items.map((p,index)=>p.sponsor?-1:index).filter(index=>index>=0);
+const tikstage=items.findIndex(p=>p.icon==='tikstage');
+const yst=items.findIndex(p=>p.icon==='yst');
+const started=performance.now();
+let last=i;
+renderPromo();
+setInterval(()=>{
+ const elapsed=performance.now()-started;
+ const phase=elapsed%120000;
+ const next=phase<10000?tikstage:phase>=60000&&phase<70000?yst:community[Math.floor(elapsed/4500)%community.length];
+ if(next===last)return;
+ last=next;
+ promo.classList.remove('entering');promo.classList.add('leaving');
+ setTimeout(()=>{i=last;renderPromo();},300);
+},100);
 </script></body></html>
